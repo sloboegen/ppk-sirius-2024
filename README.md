@@ -16,27 +16,25 @@
 
 ## Установка зависимостей
 
-1. Для работы с проектом вам потребуется установить `python3.12` и `poetry`:
+1. Для работы с проектом вам потребуется установить `python3.12`:
 
 ```bash
-$ sudo apt update && sudo apt install -y python3.12  # установка Python.
-$ curl -sSL https://install.python-poetry.org | python3 -  # установка poetry.
+$ sudo add-apt-repository ppa:deadsnakes/ppa
+$ sudo apt update && sudo apt install -y python3.12
+$ sudo apt install -y python3.12-venv
 ```
 
-2. С помощью `poetry` установим необходимые библиотеки:
+2. Далее необходимо создать виртуальное окружение и установить нужные библиотеки:
 
 ```bash
-$ poetry install --with dev
+$ python3.12 -m venv .venv
+$ source .venv/bin/activate
+(.venv) $ python -m pip install -r requirements.txt
 ```
 
-3. Также установим `make`, чтобы упростить запуск инструментов для анализа кода:
+Вероятно, это займёт продолжительное время (около 15 минут).
 
-```bash
-$ sudo apt-get install build-essential
-```
 
-Теперь запустить данные инструменты можно с помощью команды `$ make fmt lint`.
+3. На данном этапе мы можем локально запустить наш проект командой `(.venv) $ fastapi dev src/app.py`. В браузере по адресу `http://localhost:8000` (либо тот, который задан явно) можно увидеть стартовую страницу приложения.
 
-4. На данном этапе мы можем локально запустить наш проект командой `$ fastapi dev src/app.py`. В браузере по адресу `http://localhost:8000` (либо тот, который задан явно) можно увидеть стартовую страницу приложения.
-
-5. Для того чтобы запускать модели и использовать датасеты с [HuggingFace](https://huggingface.co/) нам потребуется получить Access Token. Например, в [данной инструкции](https://obnimorda.ru/guides/huggingface/gated-models/#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%82%D0%BE%D0%BA%D0%B5%D0%BD%D0%B0) описан процесс создания токена. После его создания необходимо добавить запись `HF_TOKEN=<your_token>` в `.env` файл в корне проекта (`.env` файл нужно создать).
+2. Для того чтобы запускать модели и использовать датасеты с [HuggingFace](https://huggingface.co/) нам потребуется получить Access Token. Например, в [данной инструкции](https://obnimorda.ru/guides/huggingface/gated-models/#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%82%D0%BE%D0%BA%D0%B5%D0%BD%D0%B0) описан процесс создания токена. После его создания необходимо добавить запись `HF_TOKEN=<your_token>` в `.env` файл в корне проекта (`.env` файл нужно создать).
