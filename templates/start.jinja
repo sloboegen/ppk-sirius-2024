@@ -1,0 +1,23 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+<script>
+    function enableSubmitBtn() {
+        document.getElementById('submit-button').removeAttribute("disabled");
+    }
+</script>
+
+<span>
+    <div class="container-fluid bg-2">
+        <div class="text-center">
+            <p>Шопинг-ассистент позволяет извлекать из фотографии список предметов одежды на ней.</p>
+            <p>Для использования сервиса загрузите фотографию после нажатия на кнопку ниже.</p>
+
+            <form method="post" class="upload-form" action="/findClothes" enctype="multipart/form-data">
+                <input type="submit" class="upload-form-button" id="submit-button" value="Go!" disabled>
+                <input name="input_file" type="file" class="upload-form-files" onchange="enableSubmitBtn();">
+            </form>
+        </div>
+    </div>
+</span>
+{% endblock %}
