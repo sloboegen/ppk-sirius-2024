@@ -38,3 +38,17 @@ $ source .venv/bin/activate
 3. На данном этапе мы можем локально запустить наш проект командой `(.venv) $ fastapi dev src/app.py`. В браузере по адресу `http://localhost:8000` (либо тот, который задан явно) можно увидеть стартовую страницу приложения.
 
 2. Для того чтобы запускать модели и использовать датасеты с [HuggingFace](https://huggingface.co/) нам потребуется получить Access Token. Например, в [данной инструкции](https://obnimorda.ru/guides/huggingface/gated-models/#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D1%82%D0%BE%D0%BA%D0%B5%D0%BD%D0%B0) описан процесс создания токена. После его создания необходимо добавить запись `HF_TOKEN=<your_token>` в `.env` файл в корне проекта (`.env` файл нужно создать).
+
+
+## Примеры промптов
+
+1. 
+```
+Analyze the image and identify all visible clothing items worn by the person(s). For each item, provide the following details in a bullet list:
+
+Item type (e.g., shirt, jeans, sneakers, etc.)
+Color(s) and any patterns (e.g., solid, striped, floral)
+Distinctive features (e.g., buttons, zippers, logos, collars)
+Material type if identifiable (e.g., leather, cotton, denim)
+Please list each clothing item separately, organized from head to toe (e.g., hats first, then tops, bottoms, shoes).
+```
