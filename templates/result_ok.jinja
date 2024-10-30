@@ -1,0 +1,16 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+<span>
+
+    <div class="container-fluid bg-2">
+        <div class="text-center">
+            Ваш запрос обработан!
+            <br />
+            {% for image in images %}
+            <img src="data:image/jpeg;base64,{{ image }}" width="30" height="30">
+            {% endfor %}
+        </div>
+    </div>
+</span>
+{% endblock %}
