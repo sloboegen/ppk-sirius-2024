@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from src.domains.find_clothes.api import find_clothes_router
+from src.api import find_clothes_router
 
 app = FastAPI()
 

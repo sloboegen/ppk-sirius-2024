@@ -4,9 +4,8 @@ import logging
 import typing as tp
 import uuid
 
-import requests
 from PIL import Image
-from src.domains.find_clothes.core import extract_clothes_images
+from src.core import extract_clothes_images
 from fastapi import APIRouter, BackgroundTasks, File
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.requests import Request
@@ -28,24 +27,13 @@ def _run_extracting(request_id: uuid.UUID, image_file: bytes) -> None:
     _RESULTS[request_id] = clothes_images
 
 
-def _mock_run_extracting(request_id: uuid.UUID, image_file: bytes) -> None:
-    logger.debug("Processing request with ID=%s", request_id)
-
-    image_url = "https://www.cbbiomass.com/wp-content/uploads/2017/04/Square-500x500-red.png"
-    image = Image.open(requests.get(image_url, stream=True, timeout=20).raw)
-    _RESULTS[request_id] = [image]
-
-
 @find_clothes_router.post("/findClothes")
 def find_clothes_file_handler(
     input_file: tp.Annotated[bytes, File()],
     background_tasks: BackgroundTasks,
 ) -> RedirectResponse:
     request_id = uuid.uuid4()
-    # TODO: как будет готова функция по получению настоящих картинок,
-    # то тут необходимо поменять `_mock_run_extracting` на `_run_extracting`.
-
-    background_tasks.add_task(_mock_run_extracting, request_id=request_id, image_file=input_file)
+    background_tasks.add_task(_run_extracting, request_id=request_id, image_file=input_file)
 
     return RedirectResponse(f"/findClothes/{request_id}", status_code=302)
 
